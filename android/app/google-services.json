@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "173092031976",
+    "project_id": "chaticon-flutter",
+    "storage_bucket": "chaticon-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173092031976:android:4fd6dc585d8c008cbd685d",
+        "android_client_info": {
+          "package_name": "com.sking.chaticon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173092031976-rhte6bsuhm2gq9jnqrbsrc7f2kqlhv4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3T5buv7DF3Mkq3hQggTIy6wU19HxuK7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173092031976-rhte6bsuhm2gq9jnqrbsrc7f2kqlhv4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
