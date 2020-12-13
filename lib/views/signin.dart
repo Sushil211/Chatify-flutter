@@ -1,8 +1,12 @@
+import 'package:chaticon/helper/authenticate.dart';
 import 'package:chaticon/widgets/widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
+  final Function toggle;
+  SignIn({this.toggle});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -96,11 +100,19 @@ class _SignInState extends State<SignIn> {
                                 fontSize: 13.0,
                               ),
                             ),
-                            Text(
-                              "Sign up",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.0,
+                            GestureDetector(
+                              onTap: () {
+                                widget.toggle();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Sign up",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
                               ),
                             ),
                           ],

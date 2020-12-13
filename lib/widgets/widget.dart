@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 Widget appBarMain(BuildContext context) {
   return AppBar(
     title: Text(
-      "ChatIcon",
+      "Chatify",
       style: TextStyle(),
     ),
   );
@@ -17,9 +17,11 @@ InputDecoration cardInputDecoration(String text) {
       color: Colors.white54,
       fontSize: 20.0,
     ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide.none,
-    ),
+    border: InputBorder.none,
+    focusedBorder: InputBorder.none,
+    enabledBorder: InputBorder.none,
+    errorBorder: InputBorder.none,
+    disabledBorder: InputBorder.none,
   );
 }
 
@@ -38,10 +40,35 @@ Card cardInput(String hintText, TextEditingController controller) {
     clipBehavior: Clip.antiAlias,
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextField(
-        controller: controller,
-        style: cardInputStyle(20.0),
-        decoration: cardInputDecoration(hintText),
+      child: Column(
+        children: [
+          Container(
+            height: 50.0,
+            child: TextFormField(
+              obscureText: hintText == 'password',
+              validator: (val) {
+                if (hintText == 'username') {
+                  return (val.isEmpty || val.length < 3)
+                      ? "username must be at least 3 characters"
+                      : null;
+                } else if (hintText == 'email') {
+                  return RegExp(
+                              r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                          .hasMatch(val)
+                      ? null
+                      : "Please provide a valid email address";
+                } else {
+                  return val.length < 6
+                      ? 'Password must be at least 6 characters long'
+                      : null;
+                }
+              },
+              controller: controller,
+              style: cardInputStyle(20.0),
+              decoration: cardInputDecoration(hintText),
+            ),
+          ),
+        ],
       ),
     ),
   );
