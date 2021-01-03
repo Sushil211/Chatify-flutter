@@ -1,3 +1,4 @@
+import 'package:chaticon/helper/helperfunctions.dart';
 import 'package:chaticon/services/auth.dart';
 import 'package:chaticon/services/database.dart';
 import 'package:chaticon/widgets/widget.dart';
@@ -16,6 +17,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool isLoading = false;
+
   AuthMethods authMethods = new AuthMethods();
   DatabaseMethods databaseMethods = new DatabaseMethods();
 
@@ -35,6 +37,11 @@ class _SignUpState extends State<SignUp> {
         "email": emailTextEditingController.text,
       };
 
+      HelperFunctions.saveUserNameSharedPreference(
+          usernameTextEditingController.text);
+      HelperFunctions.saveUserEmailSharedPreference(
+          emailTextEditingController.text);
+
       setState(() {
         isLoading = true;
       });
@@ -46,7 +53,7 @@ class _SignUpState extends State<SignUp> {
         print("${val.userId}");
 
         databaseMethods.uploadUserInfo(userInfoMap);
-
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => ChatRoom()));
       });

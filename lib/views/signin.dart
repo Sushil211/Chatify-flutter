@@ -1,5 +1,10 @@
 import 'package:chaticon/helper/authenticate.dart';
+import 'package:chaticon/helper/helperfunctions.dart';
+import 'package:chaticon/services/auth.dart';
+import 'package:chaticon/services/database.dart';
+import 'package:chaticon/views/chatroom_screen.dart';
 import 'package:chaticon/widgets/widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +17,48 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool isLoading = false;
+
+  AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+
+  final formKey = GlobalKey<FormState>();
+  QuerySnapshot snapshotUserInfo;
+
   TextEditingController emailTextEditingController =
       new TextEditingController();
   TextEditingController passwordTextEditingController =
       new TextEditingController();
+
+  signIn() {
+    if (formKey.currentState.validate()) {
+      HelperFunctions.saveUserEmailSharedPreference(
+          emailTextEditingController.text);
+
+      databaseMethods
+          .getUserByEmail(emailTextEditingController.text)
+          .then((val) {
+        snapshotUserInfo = val;
+        HelperFunctions.saveUserNameSharedPreference(
+            snapshotUserInfo.docs[0].data()['name']);
+      });
+
+      setState(() {
+        isLoading = true;
+      });
+
+      authMethods
+          .signInWithEmailAndPassword(emailTextEditingController.text,
+              passwordTextEditingController.text)
+          .then((val) {
+        print("${val.userId}");
+
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ChatRoom()));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +77,16 @@ class _SignInState extends State<SignIn> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        cardInput('email', emailTextEditingController),
-                        cardInput('password', passwordTextEditingController),
+                        Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              cardInput('email', emailTextEditingController),
+                              cardInput(
+                                  'password', passwordTextEditingController),
+                            ],
+                          ),
+                        ),
                         Container(
                           alignment: Alignment.centerRight,
                           child: Container(
@@ -50,22 +101,27 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 8.0,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.symmetric(vertical: 13.0),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                const Color(0xff007EF4),
-                                const Color(0xff2A75BC),
-                              ],
+                        GestureDetector(
+                          onTap: () {
+                            signIn();
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(vertical: 13.0),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xff007EF4),
+                                  const Color(0xff2A75BC),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Sign In',
-                            style: cardInputStyle(20.0),
+                            child: Text(
+                              'Sign In',
+                              style: cardInputStyle(20.0),
+                            ),
                           ),
                         ),
                         SizedBox(
