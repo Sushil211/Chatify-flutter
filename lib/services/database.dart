@@ -30,4 +30,31 @@ class DatabaseMethods {
       print(e.toString());
     });
   }
+
+  addMessages(String chatroomId, messageMap) {
+    FirebaseFirestore.instance
+        .collection("ChatRoom")
+        .doc(chatroomId)
+        .collection("chats")
+        .add(messageMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getMessages(String chatroomId) async {
+    return await FirebaseFirestore.instance
+        .collection("ChatRoom")
+        .doc(chatroomId)
+        .collection("chats")
+        .orderBy("time")
+        .snapshots();
+  }
+
+  getChatRooms(String username) {
+    return FirebaseFirestore.instance
+        .collection("ChatRoom")
+        .where("users", arrayContains: username)
+        .snapshots();
+  }
 }

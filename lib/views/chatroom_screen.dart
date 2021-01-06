@@ -2,6 +2,7 @@ import 'package:chaticon/helper/authenticate.dart';
 import 'package:chaticon/helper/constants.dart';
 import 'package:chaticon/helper/helperfunctions.dart';
 import 'package:chaticon/services/auth.dart';
+import 'package:chaticon/services/database.dart';
 import 'package:chaticon/views/search.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class ChatRoom extends StatefulWidget {
 
 class _ChatRoomState extends State<ChatRoom> {
   AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _ChatRoomState extends State<ChatRoom> {
           GestureDetector(
             onTap: () {
               authMethods.signOut();
+              HelperFunctions.saveUserLoggedInSharedPreference(false);
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => Authenticate()));
             },
