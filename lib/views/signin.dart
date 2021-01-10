@@ -3,6 +3,7 @@ import 'package:chaticon/helper/helperfunctions.dart';
 import 'package:chaticon/services/auth.dart';
 import 'package:chaticon/services/database.dart';
 import 'package:chaticon/views/chatroom_screen.dart';
+import 'package:chaticon/views/forgotpassword.dart';
 import 'package:chaticon/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -87,14 +88,22 @@ class _SignInState extends State<SignIn> {
                             ],
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.centerRight,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Forgotpassword()));
+                          },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0.0, vertical: 8.0),
-                            child: Text(
-                              'Forgot Password?',
-                              style: cardInputStyle(14.0),
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 0.0, vertical: 8.0),
+                              child: Text(
+                                'Forgot Password?',
+                                style: cardInputStyle(14.0),
+                              ),
                             ),
                           ),
                         ),

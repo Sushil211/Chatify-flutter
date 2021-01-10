@@ -15,6 +15,7 @@ class AuthMethods {
       return _userFromFirebaseUser(result.user);
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
@@ -25,6 +26,7 @@ class AuthMethods {
       return _userFromFirebaseUser(result.user);
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
@@ -33,6 +35,7 @@ class AuthMethods {
       return await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
@@ -41,6 +44,7 @@ class AuthMethods {
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 }

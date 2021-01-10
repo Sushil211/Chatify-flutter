@@ -104,7 +104,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         sendMessage();
                       },
                       child: Transform.rotate(
-                        angle: 325 * math.pi / 180,
+                        angle: 0 * math.pi / 180,
                         child: Icon(
                           Icons.send,
                           color: Colors.white54,

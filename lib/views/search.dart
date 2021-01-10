@@ -4,6 +4,7 @@ import 'package:chaticon/views/conversation_screen.dart';
 import 'package:chaticon/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -60,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
           MaterialPageRoute(
               builder: (context) => ConversationScreen(chatroomId)));
     } else {
-      print("Invalid chatRoom");
+      EasyLoading.showToast('Make Some friends :(');
     }
   }
 

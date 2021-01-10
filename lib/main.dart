@@ -3,6 +3,7 @@ import 'package:chaticon/helper/helperfunctions.dart';
 import 'package:chaticon/views/chatroom_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: isUserLoggedIn ? ChatRoom() : Authenticate(),
+      builder: EasyLoading.init(),
     );
   }
 }
