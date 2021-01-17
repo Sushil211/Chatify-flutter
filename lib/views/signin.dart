@@ -136,22 +136,6 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 16.0,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.symmetric(vertical: 13.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Sign In with Facebook',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
                         SizedBox(
                           height: 16.0,
                         ),

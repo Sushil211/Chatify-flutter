@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^0.14.4
   shared_preferences: ^0.5.12+4
   flutter_easyloading: ^2.2.2
+  google_sign_in: ^4.5.9
 
 dev_dependencies:
   flutter_test:
