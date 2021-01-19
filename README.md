@@ -1,4 +1,4 @@
-# chaticon
+# chatify
 
 A chat application made with flutter.
 
